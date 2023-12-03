@@ -8,7 +8,7 @@ export const getHeader = () => {
 	const token = localStorage.getItem("token")
 	return {
 		Authorization: `Bearer ${token}`,
-		"Content-Type": "application/json"
+		//"Content-Type": "application/json"
 	}
 }
 
@@ -27,7 +27,10 @@ export async function addStation(photo, stationType, stationPrice) {
 	} else {
 		return false
 	}
-}
+} 
+
+
+
 
 /* This function gets all station types from thee database */
 export async function getStationTypes() {
@@ -38,3 +41,18 @@ export async function getStationTypes() {
 		throw new Error("Error fetching station types")
 	}
 }
+
+
+
+/* This function gets all stations from the database */
+export async function getAllStations() {
+	try {
+		const result = await api.get("/stations/all-stations")
+		return result.data
+	} catch (error) {
+		throw new Error("Error fetching stations")
+	}
+}
+
+
+
