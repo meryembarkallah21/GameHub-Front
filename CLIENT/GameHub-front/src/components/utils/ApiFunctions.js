@@ -66,3 +66,28 @@ export async function deleteStation(stationId) {
 		throw new Error(`Error deleting station ${error.message}`)
 	}
 }
+
+
+/* This function update a station */
+export async function updateStation(stationId, stationData) {
+	const formData = new FormData()
+	formData.append("stationType", stationData.stationType)
+	formData.append("stationPrice", stationData.stationPrice)
+	formData.append("photo", stationData.photo)
+	const response = await api.put(`/stations/update/${stationId}`, formData,{
+		headers: getHeader()
+	})
+	return response
+}
+
+
+/* This funcction gets a station by the id */
+export async function getStationById(stationId) {
+	try {
+		const result = await api.get(`/stations/station/${stationId}`)
+		return result.data
+	} catch (error) {
+		throw new Error(`Error fetching station ${error.message}`)
+	}
+}
+

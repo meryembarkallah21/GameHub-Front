@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Col, Row } from "react-bootstrap"
 import { deleteStation, getAllStations } from "../utils/ApiFunctions"
+import { Col, Row } from "react-bootstrap"
 import StationFilter from "../common/StationFilter"
 import StationPaginator from "../common/StationPaginator"
 import { FaEdit, FaEye, FaPlus, FaTrashAlt } from "react-icons/fa"
 import { Link } from "react-router-dom"
-
-
-
-
-
 
 const ExistingStations = () => {
 	const [stations, setStations] = useState([{ id: "", stationType: "", stationPrice: "" }])
@@ -25,23 +20,7 @@ const ExistingStations = () => {
 		fetchStations()
 	}, [])
 
-//zedtha bch naaref l error fl console
-    const fetchStations = async () => {
-        setIsLoading(true);
-        try {
-            const result = await getAllStations();
-            console.log('Stations received:', result); // Log the received data
-            setStations(result);
-            setIsLoading(false);
-        } catch (error) {
-            console.error('Error fetching stations:', error); // Log any errors
-            setErrorMessage(error.message);
-            setIsLoading(false);
-        }
-    };
-    
-
-	/* const fetchStations = async () => {
+	const fetchStations = async () => {
 		setIsLoading(true)
 		try {
 			const result = await getAllStations()
@@ -52,8 +31,8 @@ const ExistingStations = () => {
 			setIsLoading(false)
 		}
 	}
- */
- 	useEffect(() => {
+
+	useEffect(() => {
 		if (selectedStationType === "") {
 			setFilteredStations(stations)
 		} else {
@@ -65,13 +44,13 @@ const ExistingStations = () => {
 
 	const handlePaginationClick = (pageNumber) => {
 		setCurrentPage(pageNumber)
-	} 
+	}
 
- 	const handleDelete = async (stationId) => {
+	const handleDelete = async (stationId) => {
 		try {
 			const result = await deleteStation(stationId)
 			if (result === "") {
-				setSuccessMessage(`Station No ${stationId} was deleted`)
+				setSuccessMessage(`Station No ${stationId} was delete`)
 				fetchStations()
 			} else {
 				console.error(`Error deleting station : ${result.message}`)
@@ -83,16 +62,13 @@ const ExistingStations = () => {
 			setSuccessMessage("")
 			setErrorMessage("")
 		}, 3000)
-	} 
+	}
 
-  
-
-
- 	const calculateTotalPages = (filteredStations, stationsPerPage, stations) => {
+	const calculateTotalPages = (filteredStations, stationsPerPage, stations) => {
 		const totalStations = filteredStations.length > 0 ? filteredStations.length : stations.length
 		return Math.ceil(totalStations / stationsPerPage)
 	}
- 
+
 	const indexOfLastStation = currentPage * stationsPerPage
 	const indexOfFirstStation = indexOfLastStation - stationsPerPage
 	const currentStations = filteredStations.slice(indexOfFirstStation, indexOfLastStation)
@@ -114,15 +90,17 @@ const ExistingStations = () => {
 							<h2>Existing Stations</h2>
 						</div>
 
-					 <Row>
+						<Row>
 							<Col md={6} className="mb-2 md-mb-0">
 								<StationFilter data={stations} setFilteredData={setFilteredStations} />
 							</Col>
 
 							<Col md={6} className="d-flex justify-content-end">
-							
+								<Link to={"/add-station"}>
+									<FaPlus /> Add Station
+								</Link>
 							</Col>
-						</Row>  
+						</Row>
 
 						<table className="table table-bordered table-hover">
 							<thead>
@@ -141,8 +119,7 @@ const ExistingStations = () => {
 										<td>{station.stationType}</td>
 										<td>{station.stationPrice}</td>
 										<td className="gap-2">
-											
-										<Link to={`/edit-station/${station.id}`} className="gap-2">
+											<Link to={`/edit-station/${station.id}`} className="gap-2">
 												<span className="btn btn-info btn-sm">
 													<FaEye />
 												</span>
@@ -150,24 +127,21 @@ const ExistingStations = () => {
 													<FaEdit />
 												</span>
 											</Link>
-										
-
-                                            <button
-											className="btn btn-danger btn-sm ml-5"
-												onClick={() => handleDelete(room.id)}>
+											<button
+												className="btn btn-danger btn-sm ml-5"
+												onClick={() => handleDelete(station.id)}>
 												<FaTrashAlt />
 											</button>
-											
 										</td>
 									</tr>
 								))}
 							</tbody>
 						</table>
-						{<StationPaginator
+						<StationPaginator
 							currentPage={currentPage}
 							totalPages={calculateTotalPages(filteredStations, stationsPerPage, stations)}
 							onPageChange={handlePaginationClick}
-						/> }
+						/>
 					</section>
 				</>
 			)}

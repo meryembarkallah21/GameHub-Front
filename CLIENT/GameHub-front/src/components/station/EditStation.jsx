@@ -1,11 +1,67 @@
 import React, { useEffect, useState } from "react"
+import { getStationById, updateStation } from "../utils/ApiFunctions"
+import { Link, useParams } from "react-router-dom"
 
 const EditStation = () => {
-	
+	const [station, setStation] = useState({
+		photo: "",
+		stationType: "",
+		stationPrice: ""
+	})
+
+	const [imagePreview, setImagePreview] = useState("")
+	const [successMessage, setSuccessMessage] = useState("")
+	const [errorMessage, setErrorMessage] = useState("")
+	const { stationId } = useParams()
+
+	const handleImageChange = (e) => {
+		const selectedImage = e.target.files[0]
+		setStation({ ...station, photo: selectedImage })
+		setImagePreview(URL.createObjectURL(selectedImage))
+	}
+
+	const handleInputChange = (event) => {
+		const { name, value } = event.target
+		setStation({ ...station, [name]: value })
+	}
+
+	useEffect(() => {
+		const fetchStation = async () => {
+			try {
+				const stationData = await getStationById(stationId)
+				setStation(stationData)
+				setImagePreview(stationData.photo)
+			} catch (error) {
+				console.error(error)
+			}
+		}
+
+		fetchStation()
+	}, [stationId])
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+
+		try {
+			const response = await updateStation(stationId, station)
+			if (response.status === 200) {
+				setSuccessMessage("Station updated successfully!")
+				const updatedStationData = await getStationById(stationId)
+				setStation(updatedStationData)
+				setImagePreview(updatedStationData.photo)
+				setErrorMessage("")
+			} else {
+				setErrorMessage("Error updating station")
+			}
+		} catch (error) {
+			console.error(error)
+			setErrorMessage(error.message)
+		}
+	}
+
 	return (
-		<div >
-            <h2> Edit station </h2>
-			{/* <h3 className="text-center mb-5 mt-5">Edit Station</h3>
+		<div className="container mt-5 mb-5">
+			<h3 className="text-center mb-5 mt-5">Edit Station</h3>
 			<div className="row justify-content-center">
 				<div className="col-md-8 col-lg-6">
 					{successMessage && (
@@ -77,7 +133,7 @@ const EditStation = () => {
 						</div>
 					</form>
 				</div>
-			</div> */}
+			</div>
 		</div>
 	)
 }

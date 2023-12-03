@@ -21,8 +21,8 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/edit-station/:stationId" element={<EditStation/>} />
             <Route path="/existing-stations" element={<ExistingStations/>} />
+            <Route path="/add-station" element={<AddStation/>} />
 
-         
           </Routes>   
         </Router>
 
