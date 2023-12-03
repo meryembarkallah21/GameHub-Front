@@ -55,4 +55,14 @@ export async function getAllStations() {
 }
 
 
-
+/* This function deletes a station by the Id */
+export async function deleteStation(stationId) {
+	try {
+		const result = await api.delete(`/stations/delete/station/${stationId}`, {
+			headers: getHeader()
+		})
+		return result.data
+	} catch (error) {
+		throw new Error(`Error deleting station ${error.message}`)
+	}
+}

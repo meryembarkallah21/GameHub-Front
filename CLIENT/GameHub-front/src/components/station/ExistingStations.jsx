@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Col, Row } from "react-bootstrap"
+import { deleteStation, getAllStations } from "../utils/ApiFunctions"
 import StationFilter from "../common/StationFilter"
 import StationPaginator from "../common/StationPaginator"
 import { FaEdit, FaEye, FaPlus, FaTrashAlt } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 
-import { getAllStations } from "../utils/ApiFunctions" 
 
 
 
@@ -24,7 +25,7 @@ const ExistingStations = () => {
 		fetchStations()
 	}, [])
 
-
+//zedtha bch naaref l error fl console
     const fetchStations = async () => {
         setIsLoading(true);
         try {
@@ -66,11 +67,11 @@ const ExistingStations = () => {
 		setCurrentPage(pageNumber)
 	} 
 
-/* 	const handleDelete = async (stationId) => {
+ 	const handleDelete = async (stationId) => {
 		try {
 			const result = await deleteStation(stationId)
 			if (result === "") {
-				setSuccessMessage(`Station No ${stationId} was delete`)
+				setSuccessMessage(`Station No ${stationId} was deleted`)
 				fetchStations()
 			} else {
 				console.error(`Error deleting station : ${result.message}`)
@@ -82,7 +83,7 @@ const ExistingStations = () => {
 			setSuccessMessage("")
 			setErrorMessage("")
 		}, 3000)
-	} */
+	} 
 
   
 
@@ -140,9 +141,22 @@ const ExistingStations = () => {
 										<td>{station.stationType}</td>
 										<td>{station.stationPrice}</td>
 										<td className="gap-2">
+											
+										<Link to={`/edit-station/${station.id}`} className="gap-2">
+												<span className="btn btn-info btn-sm">
+													<FaEye />
+												</span>
+												<span className="btn btn-warning btn-sm ml-5">
+													<FaEdit />
+												</span>
+											</Link>
+										
 
-                                            <button>View / Edit</button>
-                                            <button>Delete</button>
+                                            <button
+											className="btn btn-danger btn-sm ml-5"
+												onClick={() => handleDelete(room.id)}>
+												<FaTrashAlt />
+											</button>
 											
 										</td>
 									</tr>
