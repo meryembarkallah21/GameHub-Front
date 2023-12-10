@@ -90,4 +90,66 @@ export async function getStationById(stationId) {
 		throw new Error(`Error fetching station ${error.message}`)
 	}
 }
+/////////////////////////////////////////////////////////////
+/////////////////            BOOKING 
+/////////////////////////////////////////////////////////////
 
+
+/* This function saves a new booking to the databse */
+export async function bookStation(stationId, booking) {
+	try {
+		const response = await api.post(`/bookings/station/${stationId}/booking`, booking)
+		return response.data
+	} catch (error) {
+		if (error.response && error.response.data) {
+			throw new Error(error.response.data)
+		} else {
+			throw new Error(`Error booking station : ${error.message}`)
+		}
+	}
+}
+
+/* This function gets alll bokings from the database */
+export async function getAllBookings() {
+	try {
+		const result = await api.get("/bookings/all-bookings", {
+			headers: getHeader()
+		})
+		return result.data
+	} catch (error) {
+		throw new Error(`Error fetching bookings : ${error.message}`)
+	}
+}
+
+/* This function get booking by the cnfirmation code */
+export async function getBookingByConfirmationCode(confirmationCode) {
+	try {
+		const result = await api.get(`/bookings/confirmation/${confirmationCode}`)
+		return result.data
+	} catch (error) {
+		if (error.response && error.response.data) {
+			throw new Error(error.response.data)
+		} else {
+			throw new Error(`Error find booking : ${error.message}`)
+		}
+	}
+}
+
+/* This is the function to cancel user booking */
+export async function cancelBooking(bookingId) {
+	try {
+		const result = await api.delete(`/bookings/booking/${bookingId}/delete`)
+		return result.data
+	} catch (error) {
+		throw new Error(`Error cancelling booking :${error.message}`)
+	}
+}
+
+/* This function gets all availavle stations from the database with a given date and a station type */
+export async function getAvailableStations(checkInDate, checkOutDate, stationType) {
+	const result = await api.get(
+		`stations/available-stations?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&stationType=${stationType}`
+	)
+	return result
+}

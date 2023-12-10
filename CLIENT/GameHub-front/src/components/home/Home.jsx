@@ -11,20 +11,18 @@ const Home = () => {
 	const currentUser = localStorage.getItem("userId") */
 	return (
 		<section>
-		
-			<MainHeader />
-			<div className="container">
-				<StationCarousel/>
-				<Parallax />
-
-				<GamehubService/>
-
-				<StationCarousel/>
-
-
-			</div> 
+			<div className="black-background">
+				<MainHeader />
+				<div className="container">
+					<StationCarousel />
+					<Parallax />
+					<GamehubService />
+					<StationCarousel />
+				</div>
+			</div>
 		</section>
 	)
+	
 }
 
 export default Home
