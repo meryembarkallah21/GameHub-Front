@@ -1,9 +1,29 @@
-import React, { useContext } from "react"
-
+import React from "react"
+import MainHeader from "../layout/MainHeader"
+import GamehubService from "../common/GamehubService"
+import { useLocation } from "react-router-dom"
+import Parallax from "../common/Parallax"
+import StationCarousel from "../common/StationCarousel"
 const Home = () => {
-	
+	/* const location = useLocation()
+
+	const message = location.state && location.state.message
+	const currentUser = localStorage.getItem("userId") */
 	return (
-		<h2> Home sweet home hehe </h2>
+		<section>
+		
+			<MainHeader />
+			<div className="container">
+				<StationCarousel/>
+				<Parallax />
+
+				<GamehubService/>
+
+				<StationCarousel/>
+
+
+			</div> 
+		</section>
 	)
 }
 

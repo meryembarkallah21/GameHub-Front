@@ -9,6 +9,8 @@ import EditStation from './components/station/EditStation';
 import Home from './components/home/Home';
 import NavBar from './components/layout/NavBar';
 import Footer from './components/layout/Footer';
+import StationListing from './components/station/StationListing';
+import Admin from './components/admin/Admin';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,10 +28,16 @@ function App() {
             <Route path="/edit-station/:stationId" element={<EditStation/>} />
             <Route path="/existing-stations" element={<ExistingStations/>} />
             <Route path="/add-station" element={<AddStation/>} />
+            <Route path="/browse-all-stations" element={<StationListing/>} />
+            <Route path="/admin" element={<Admin/>} />
 
           </Routes>   
           <Footer/>
         </Router>
+      
+
+
+     
       
         </main>
       
