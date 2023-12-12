@@ -13,6 +13,7 @@ import StationListing from './components/station/StationListing';
 import Admin from './components/admin/Admin';
 import BookingForm from './components/booking/BookingForm';
 import BookingSuccess from './components/booking/BookingSuccess';
+import Checkout from './components/booking/Checkout';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,7 +33,7 @@ function App() {
             <Route path="/add-station" element={<AddStation/>} />
             <Route path="/browse-all-stations" element={<StationListing/>} />
             <Route path="/admin" element={<Admin/>} />
-            <Route path="/book-station/:stationId"element={<BookingForm/>}/>
+            <Route path="/book-station/:stationId"element={<Checkout/>}/>
             <Route path="/booking-success" element={<BookingSuccess/>} />
 
           </Routes>   
