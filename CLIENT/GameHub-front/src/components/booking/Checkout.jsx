@@ -64,7 +64,7 @@ const Checkout = () => {
 										</tr>
 										<tr>
 											<th>Price per night:</th>
-											<td>${stationInfo.stationPrice}</td>
+											<td> {stationInfo.stationPrice} DT</td>
 										</tr>
 										<tr>
 											<th>Station Service:</th>
