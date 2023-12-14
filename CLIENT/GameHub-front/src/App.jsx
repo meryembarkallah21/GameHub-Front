@@ -15,6 +15,7 @@ import BookingForm from './components/booking/BookingForm';
 import BookingSuccess from './components/booking/BookingSuccess';
 import Checkout from './components/booking/Checkout';
 import Bookings from './components/booking/Bookings';
+import FindBooking from './components/booking/FindBooking';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -37,6 +38,7 @@ function App() {
             <Route path="/book-station/:stationId"element={<Checkout/>}/>
             <Route path="/booking-success" element={<BookingSuccess/>} />
             <Route path="/existing-bookings" element={<Bookings/>} />
+            <Route path="/find-booking" element={<FindBooking/>} />
 
           </Routes>   
           <Footer/>
