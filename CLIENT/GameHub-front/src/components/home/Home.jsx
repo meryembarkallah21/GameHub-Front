@@ -4,6 +4,7 @@ import GamehubService from "../common/GamehubService"
 import { useLocation } from "react-router-dom"
 import Parallax from "../common/Parallax"
 import StationCarousel from "../common/StationCarousel"
+import StationSearch from "../common/StationSearch"
 const Home = () => {
 	/* const location = useLocation()
 
@@ -11,15 +12,17 @@ const Home = () => {
 	const currentUser = localStorage.getItem("userId") */
 	return (
 		<section>
-			<div className="black-background">
-				<MainHeader />
-				<div className="container">
-					<StationCarousel />
-					<Parallax />
-					<GamehubService />
-					<StationCarousel />
-				</div>
-			</div>
+		
+		<MainHeader />
+		<div className="container">
+			<StationSearch />
+			<StationCarousel />
+			<Parallax />
+			<StationCarousel />
+			<GamehubService />
+			<Parallax />
+			<StationCarousel />
+		</div>
 		</section>
 	)
 	

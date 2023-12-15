@@ -153,3 +153,6 @@ export async function getAvailableStations(checkInDate, checkOutDate, stationTyp
 	)
 	return result
 }
+
+
+
